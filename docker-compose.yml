@@ -4,6 +4,7 @@ services:
   db:
     image: 'valentynchepiha/oracle18xe:18.4.0-xe'
     container_name: db
+    restart: always
     environment:
       - ORACLE_PWD=Fg6dg6es78etf8g
     ports:
@@ -11,16 +12,17 @@ services:
       - "5500:5500"
     healthcheck:
           test: ["CMD", "/opt/oracle/checkDBStatus.sh"]
-          interval: 3s
+          interval: 30s
+          timeout: 30s
+          retries: 30
     volumes:
-      - 'd:/Docker/container/oracle18xe:/opt/oracle/oradata'
+      - './container/oracle18xe:/opt/oracle/oradata'
       - './startup:/opt/oracle/scripts/startup'
 
   server:
     image: 'valentynchepiha/nc-eshop-docker:latest'
-    build:
-      context: .
     container_name: server
+    restart: always
     depends_on:
       db:
         condition: service_healthy
@@ -35,9 +37,8 @@ services:
 
   client:
     image: 'valentynchepiha/nc-eclient-docker:latest'
-    build:
-      context: .
     container_name: client
+    restart: always
     depends_on:
       db:
         condition: service_healthy
@@ -51,3 +52,5 @@ services:
       - API_URL_CREATE_ORDER=http://server:8090/api/order/create
     ports:
       - "8099:8099"
+
+

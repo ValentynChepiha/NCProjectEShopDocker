@@ -1,0 +1,1 @@
+docker run --name oracle18xe -p 1521:1521 -p 5500:5500 -e ORACLE_PWD=Fg6dg6es78etf8g -v /container/oracle18xe:/opt/oracle/oradata valentynchepiha/oracle18xe:18.4.0-xe
