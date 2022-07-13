@@ -9,7 +9,7 @@ For run:
       b) up.cmd
       c) after build DB, down.cmd
       
-    2) For run project, in rood dir: 
+    2) For run project, in root dir: 
           
       a) up.cmd - start project
       b) restart.cmd - restart project
